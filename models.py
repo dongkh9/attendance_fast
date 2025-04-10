@@ -24,6 +24,7 @@ class Course(Base):
 
     students = relationship("Student", back_populates="course")
     attendances = relationship("Attendance", back_populates="course")
+    taglogs = relationship("TagLog", back_populates="course")
 
 
 # =========================
@@ -42,6 +43,7 @@ class Student(Base):
 
     course = relationship("Course", back_populates="students")
     attendances = relationship("Attendance", back_populates="student")
+    taglogs = relationship("TagLog", back_populates="student")
 
 
 # =========================
@@ -75,5 +77,11 @@ class TagLog(Base):
     id = Column(Integer, primary_key=True, index=True)
     tag_time = Column(DateTime, default=datetime.now)
     uid = Column(String(100))
+    student_id = Column(Integer, ForeignKey("student.id"), nullable=True)
+    course_id = Column(Integer, ForeignKey("course.id"), nullable=True)
     status = Column(String(20))
     message = Column(String(255))
+
+    course = relationship("Course", back_populates="taglogs")
+    student = relationship("Student", back_populates="taglogs")
+
