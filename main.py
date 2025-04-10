@@ -3,6 +3,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from domain.course.controller import course_router
 from domain.attendance.controller import attendance_router
+from domain.student.controller import student_router
 
 app = FastAPI()
 
@@ -20,3 +21,4 @@ app.add_middleware(
 
 app.include_router(course_router.router)
 app.include_router(attendance_router.router)
+app.include_router(student_router.router)
