@@ -36,6 +36,7 @@ class Student(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
     course_id = Column(Integer, ForeignKey("course.id"), nullable=False)
+    company = Column(String(100))
     department = Column(String(100))
     position = Column(String(100))
     phone = Column(String(50))
@@ -59,10 +60,10 @@ class Attendance(Base):
     date = Column(String(8))  # 'YY-MM-DD'
     check_in = Column(String(8))  # 'HH:MM:SS'
     check_out = Column(String(8))  # 'HH:MM:SS'
-    status = Column(String(20))
+    status = Column(String(20)) # 입실, 출석, 지각, 조퇴, 결석
 
-    override_date = Column(String(8))
-    override_time = Column(String(8))
+    override_date = Column(String(8), nullable=True)
+    override_time = Column(String(8), nullable=True)
 
     course = relationship("Course", back_populates="attendances")
     student = relationship("Student", back_populates="attendances")
@@ -79,7 +80,7 @@ class TagLog(Base):
     uid = Column(String(100))
     student_id = Column(Integer, ForeignKey("student.id"), nullable=True)
     course_id = Column(Integer, ForeignKey("course.id"), nullable=True)
-    status = Column(String(20))
+    status = Column(String(20)) # success, fail, double
     message = Column(String(255))
 
     course = relationship("Course", back_populates="taglogs")

@@ -173,3 +173,15 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+domain/attendance/controller/__pycache__/attendance_router.cpython-312.pyc
+.idea/vcs.xml
+domain/attendance/dto/__pycache__/attendance_schema.cpython-312.pyc
+domain/attendance/controller/__pycache__/attendance_router.cpython-312.pyc
+domain/attendance/repository/__pycache__/attendance_crud.cpython-312.pyc
+domain/attendance/dto/__pycache__/attendance_schema.cpython-312.pyc
+domain/attendance/service/__pycache__/attendance_service.cpython-312.pyc
+domain/course/controller/__pycache__/course_router.cpython-312.pyc
+domain/course/dto/__pycache__/course_schema.cpython-312.pyc
+domain/course/repository/__pycache__/course_crud.cpython-312.pyc
+domain/course/service/__pycache__/course_service.cpython-312.pyc
+.idea/git_toolbox_prj.xml

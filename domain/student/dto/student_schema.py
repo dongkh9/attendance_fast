@@ -6,6 +6,7 @@ class Student(BaseModel):
     id: int
     name: str
     course_id: int
+    company: str
     department: str
     position: str
     phone: str
@@ -14,6 +15,7 @@ class Student(BaseModel):
 class StudentContents(BaseModel):
     name: str
     course_id: int
+    company: str
     department: str
     position: str
     phone: str

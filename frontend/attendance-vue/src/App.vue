@@ -1,17 +1,10 @@
 <template>
-  <div>
-    {{ hello }}
-  </div>
+  <Navigation></Navigation>
+<router-view></router-view>
 </template>
 
 <script setup>
-import {ref,onMounted} from  'vue';
-import axios from 'axios';
-const hello = ref("hello");
-
-onMounted( async ()=>{
-  hello.value = (await axios.get("http://localhost:8000/hello")).data.message;
-})
+import Navigation from "@/components/Navigation.vue"
 </script>
 
 <style scoped>
