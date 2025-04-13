@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 from sqlalchemy.orm import Session
 
 from domain.taglog.dto import taglog_schema
@@ -28,7 +28,7 @@ def taglog_in_student(student_id: int, db: Session = Depends(get_db)):
     return _taglog_in_student
 
 @router.post("/")
-def tag(db: Session = Depends(get_db)):
-    _taglog= taglog_service.tag(db)
+def tag(uid: str = Body(...), db: Session = Depends(get_db)):
+    _taglog= taglog_service.tag(uid,db)
     return _taglog
 

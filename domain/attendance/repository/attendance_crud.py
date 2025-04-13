@@ -36,7 +36,7 @@ def get_thatday_attendance_list(date_string, db):
     )
     return records
 
-def regist_attendance_manual(_attendance_regist, db):
+def regist_attendance(_attendance_regist, db):
     new_attendance = Attendance(**_attendance_regist.dict())
     db.add(new_attendance)
     db.commit()

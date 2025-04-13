@@ -36,9 +36,6 @@ class Student(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
     course_id = Column(Integer, ForeignKey("course.id"), nullable=False)
-    company = Column(String(100))
-    department = Column(String(100))
-    position = Column(String(100))
     phone = Column(String(50))
     uid = Column(String(100), unique=True)
 
@@ -80,7 +77,6 @@ class TagLog(Base):
     uid = Column(String(100))
     student_id = Column(Integer, ForeignKey("student.id"), nullable=True)
     course_id = Column(Integer, ForeignKey("course.id"), nullable=True)
-    status = Column(String(20)) # success, fail, double
     message = Column(String(255))
 
     course = relationship("Course", back_populates="taglogs")

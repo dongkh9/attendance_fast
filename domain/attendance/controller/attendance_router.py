@@ -21,9 +21,9 @@ def thatday_attendance_list(date_string: str, db: Session = Depends(get_db)):
     return _thatday_attendance_list
 
 @router.post("/")
-def course_attendance_manual(_attendance_regist: attendance_schema.AttendanceContents,
+def course_attendance(_attendance_regist: attendance_schema.AttendanceContents,
                          db: Session = Depends(get_db)):
-    new_attendance = attendance_service.regist_attendance_manual(_attendance_regist,db)
+    new_attendance = attendance_service.regist_attendance(_attendance_regist,db)
     return new_attendance
 
 @router.put("/{id}")

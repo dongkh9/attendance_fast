@@ -12,8 +12,8 @@ def get_thatday_attendance_list(date_string, db):
     thatday_attendance_list = attendance_crud.get_thatday_attendance_list(date_string, db)
     return thatday_attendance_list
 
-def regist_attendance_manual(_attendance_regist, db):
-    new_attendance = attendance_crud.regist_attendance_manual(_attendance_regist,db)
+def regist_attendance(_attendance_regist, db):
+    new_attendance = attendance_crud.regist_attendance(_attendance_regist,db)
     return new_attendance
 
 def update_attendance(_attendance_update, id, db):

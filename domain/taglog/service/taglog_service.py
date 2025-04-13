@@ -15,6 +15,6 @@ def get_taglog_in_student(student_id, db):
     return taglog_in_student_list
 
 
-def tag(db):
-    tag_log = taglog_crud.tag(db)
+def tag(uid, db):
+    tag_log = taglog_crud.tag(uid, db)
     return tag_log
