@@ -10,7 +10,7 @@ router = APIRouter(
     prefix="/api/attendance"
 )
 
-@router.get("/list/today", response_model=list[attendance_schema.Attendance])
+@router.get("/list/today", response_model=list[attendance_schema.AttendancePlus])
 def today_attendance_list(db: Session = Depends(get_db)):
     _today_attendance_list = attendance_service.get_today_attendance_list(db)
     return _today_attendance_list
@@ -21,10 +21,17 @@ def thatday_attendance_list(date_string: str, db: Session = Depends(get_db)):
     return _thatday_attendance_list
 
 @router.post("/")
-def course_attendance(_attendance_regist: attendance_schema.AttendanceContents,
+def regist_attendance(_attendance_regist: attendance_schema.AttendanceContents,
                          db: Session = Depends(get_db)):
     new_attendance = attendance_service.regist_attendance(_attendance_regist,db)
     return new_attendance
+
+@router.post("/nfc")
+def nfc_attendance(taged_info: attendance_schema.TagInfo,
+                   db: Session = Depends(get_db)):
+    new_attendacne = attendance_service.nfc_attendance(taged_info,db)
+    return new_attendacne
+
 
 @router.put("/{id}")
 def attendance_update(id: int,

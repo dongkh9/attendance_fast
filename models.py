@@ -56,7 +56,7 @@ class Attendance(Base):
 
     date = Column(String(8))  # 'YY-MM-DD'
     check_in = Column(String(8))  # 'HH:MM:SS'
-    check_out = Column(String(8))  # 'HH:MM:SS'
+    check_out = Column(String(8), nullable=True)  # 'HH:MM:SS'
     status = Column(String(20)) # 입실, 출석, 지각, 조퇴, 결석
 
     override_date = Column(String(8), nullable=True)

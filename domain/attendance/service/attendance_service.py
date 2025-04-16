@@ -23,3 +23,8 @@ def update_attendance(_attendance_update, id, db):
 
 def delete_attendance(id, db):
     attendance_crud.delete_attendance(id,db)
+
+
+def nfc_attendance(taged_info, db):
+    new_attendnace = attendance_crud.regist_nfc_attendance(taged_info,db)
+    return new_attendnace
