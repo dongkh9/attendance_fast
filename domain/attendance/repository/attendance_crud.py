@@ -10,11 +10,11 @@ async def get_today_attendance_list(today_str: str, db):
         select(Attendance)
         .where(Attendance.date == today_str)
         .options(
-            joinedload(Attendance.student),
+    joinedload(Attendance.student),
             joinedload(Attendance.course)
         )
     )
-    records = query_result.scalars.all()
+    records = query_result.scalars().all()
 
     def parse_time(t):
         if t is None:
@@ -34,6 +34,7 @@ async def get_today_attendance_list(today_str: str, db):
             "course_name": r.course.name if r.course else None,
             "student_id": r.student_id,
             "student_name": r.student.name if r.student else None,
+            "phone": r.student.phone if r.student else None,
             "date": r.date,
             "check_in": r.check_in,
             "check_out": r.check_out,
@@ -51,7 +52,7 @@ async def get_thatday_attendance_list(date_string, db):
         select(Attendance)
         .where(Attendance.date == date_string)
     )
-    records = query_result.scalars.all()
+    records = query_result.scalars().all()
 
 
     def parse_time(t):
@@ -124,4 +125,4 @@ async def regist_nfc_attendance(taged_info, db):
         await db.refresh(today_attendance)
         return today_attendance
     else:
-        return False
+        return None

@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import TestRoutes from "./test"
+import Attenddance from "./attendance"
 
 const routes = [
 {
@@ -8,6 +9,7 @@ const routes = [
     redirect: '/attendance'
 },
 ...TestRoutes,
+...Attenddance,
 ];
 
 const router = createRouter({

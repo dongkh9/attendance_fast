@@ -30,6 +30,7 @@ class AttendancePlus(BaseModel):
     student_id: int
     student_name: str
     date: str
+    phone: str
     check_in: str
     check_out: Optional[str] = None
     status: Optional[str] = None

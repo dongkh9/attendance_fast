@@ -2,9 +2,10 @@
     <div class="nav-container">
     <div class="title-container">
         <div class="logo-container">
-        <img src="@/assets/img/yonsei.png" class="yonsei-logo" />
+        <!-- <img src="@/assets/img/yonsei.png" class="yonsei-logo" /> -->
         </div>
-        <p class="title">연세대학교 상남경영원 출석관리 시스템</p>
+        <!-- <p class="title">연세대학교 상남경영원 출석관리 시스템</p> -->
+        <p>테스트</p>
     </div>
     <div class="menu-container">
         <div class="menu-list">

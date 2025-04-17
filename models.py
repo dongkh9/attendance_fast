@@ -16,6 +16,7 @@ class Course(Base):
     start_date = Column(String(8)) #YY-MM-DD
     end_date = Column(String(8))
     order = Column(Integer) # n기
+    week_days = Column(String(100)) # "mon,wed,sun"
     @property
     def is_active(self):
         today = datetime.now().date()

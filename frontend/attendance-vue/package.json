@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "axios": "^1.8.4",
+    "maska": "^3.1.1",
+    "mitt": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },

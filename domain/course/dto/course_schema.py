@@ -1,4 +1,4 @@
-import datetime
+from typing import List
 
 from pydantic import BaseModel
 
@@ -11,6 +11,9 @@ class Course(BaseModel):
     start_date: str
     end_date: str
     order: int
+    week_days: str
+    student_count: int
+
 
 class CourseContents(BaseModel):
     name: str
@@ -20,3 +23,5 @@ class CourseContents(BaseModel):
     start_date: str
     end_date: str
     order: int
+    week_days: List[str]
+
