@@ -1,15 +1,20 @@
+from sqlalchemy import select
+
 from models import Attendance
 from datetime import datetime
-from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm import joinedload
 
 
-def get_today_attendance_list(today_str: str, db: Session):
-    records = db.query(Attendance).filter(
-        Attendance.date == today_str
-    ).options(
-        joinedload(Attendance.student),
-        joinedload(Attendance.course)
-    ).all()
+async def get_today_attendance_list(today_str: str, db):
+    query_result = await db.execute(
+        select(Attendance)
+        .where(Attendance.date == today_str)
+        .options(
+            joinedload(Attendance.student),
+            joinedload(Attendance.course)
+        )
+    )
+    records = query_result.scalars.all()
 
     def parse_time(t):
         if t is None:
@@ -40,10 +45,14 @@ def get_today_attendance_list(today_str: str, db: Session):
     ]
 
 
-def get_thatday_attendance_list(date_string, db):
-    records = db.query(Attendance).filter(
-        Attendance.date == date_string
-    ).all()
+async def get_thatday_attendance_list(date_string, db):
+
+    query_result = await db.execute(
+        select(Attendance)
+        .where(Attendance.date == date_string)
+    )
+    records = query_result.scalars.all()
+
 
     def parse_time(t):
         if t is None:
@@ -56,33 +65,46 @@ def get_thatday_attendance_list(date_string, db):
     )
     return records
 
-def regist_attendance(_attendance_regist, db):
+async def regist_attendance(_attendance_regist, db):
     new_attendance = Attendance(**_attendance_regist.dict())
     db.add(new_attendance)
-    db.commit()
-    db.refresh(new_attendance)
+    await db.commit()
+    await db.refresh(new_attendance)
     return new_attendance
 
-def update_attendance(_attendance_update, id, db):
-    attendance = db.query(Attendance).filter(Attendance.id == id).first()
+async def update_attendance(_attendance_update, id, db):
+    query_result = await db.execute(
+        select(Attendance)
+        .where(Attendance.id == id)
+    )
+    attendance = query_result.scalar_one()
     for key, value in _attendance_update.dict(exclude_unset=True).items():
         setattr(attendance,key,value)
-    db.commit()
-    db.refresh(attendance)
+    await db.commit()
+    await db.refresh(attendance)
     return attendance
 
-def delete_attendance(id, db):
-    attendance = db.query(Attendance).filter(Attendance.id == id).first()
-    db.delete(attendance)
-    db.commit()
+async def delete_attendance(id, db):
+    query_result = db.execute(
+        select(Attendance)
+        .where(Attendance.id == id)
+    )
+    attendance = query_result.scalar_one()
+    await db.delete(attendance)
+    await db.commit()
 
 
-def regist_nfc_attendance(taged_info, db):
+async def regist_nfc_attendance(taged_info, db):
     dt = datetime.fromisoformat(taged_info.tag_time)
     time_str = dt.strftime("%H:%M:%S")
     taged_info.tag_time = time_str
-    today_attendance = db.query(Attendance).filter(Attendance.student_id == taged_info.student_id,
-                                                   Attendance.date == taged_info.date).first()
+    query_result = await db.execute(
+        select(Attendance)
+        .where(Attendance.student_id == taged_info.student_id,
+               Attendance.date == taged_info.date)
+    )
+    today_attendance = query_result.scalar_one_or_none()
+
     if today_attendance is None :
         new_attendance = Attendance(
             student_id= taged_info.student_id,
@@ -92,14 +114,14 @@ def regist_nfc_attendance(taged_info, db):
             status= "입실"
         )
         db.add(new_attendance)
-        db.commit()
-        db.refresh(new_attendance)
+        await db.commit()
+        await db.refresh(new_attendance)
         return new_attendance
     elif today_attendance.check_out is None :
         setattr(today_attendance,"check_out",taged_info.tag_time)
         setattr(today_attendance,"status","퇴실")
-        db.commit()
-        db.refresh(today_attendance)
+        await db.commit()
+        await db.refresh(today_attendance)
         return today_attendance
     else:
         return False

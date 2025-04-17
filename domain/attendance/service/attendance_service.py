@@ -2,29 +2,29 @@ from domain.attendance.repository import attendance_crud
 from datetime import date
 
 
-def get_today_attendance_list(db):
+async def get_today_attendance_list(db):
     today = date.today().strftime("%y-%m-%d")
-    today_attendance_list = attendance_crud.get_today_attendance_list(today,db)
+    today_attendance_list = await attendance_crud.get_today_attendance_list(today,db)
     return today_attendance_list
 
 
-def get_thatday_attendance_list(date_string, db):
-    thatday_attendance_list = attendance_crud.get_thatday_attendance_list(date_string, db)
+async def get_thatday_attendance_list(date_string, db):
+    thatday_attendance_list = await attendance_crud.get_thatday_attendance_list(date_string, db)
     return thatday_attendance_list
 
-def regist_attendance(_attendance_regist, db):
-    new_attendance = attendance_crud.regist_attendance(_attendance_regist,db)
+async def regist_attendance(_attendance_regist, db):
+    new_attendance = await attendance_crud.regist_attendance(_attendance_regist,db)
     return new_attendance
 
-def update_attendance(_attendance_update, id, db):
-    updated_attendance = attendance_crud.update_attendance(_attendance_update,id,db)
+async def update_attendance(_attendance_update, id, db):
+    updated_attendance = await attendance_crud.update_attendance(_attendance_update,id,db)
     return updated_attendance
 
 
-def delete_attendance(id, db):
-    attendance_crud.delete_attendance(id,db)
+async def delete_attendance(id, db):
+    await attendance_crud.delete_attendance(id,db)
 
 
-def nfc_attendance(taged_info, db):
-    new_attendnace = attendance_crud.regist_nfc_attendance(taged_info,db)
+async def nfc_attendance(taged_info, db):
+    new_attendnace = await attendance_crud.regist_nfc_attendance(taged_info,db)
     return new_attendnace
